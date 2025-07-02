@@ -1,6 +1,6 @@
-# Test Case Generator
+# Test Case Generator with Impact Analysis
 
-A comprehensive test case generation system that processes user stories from Jira and uploaded documents to automatically generate test cases using LLM (Large Language Models).
+A comprehensive test case generation and impact analysis system that processes user stories from Jira and uploaded documents to automatically generate test cases using LLM (Large Language Models).
 
 ## 🎯 Features
 
@@ -13,6 +13,10 @@ A comprehensive test case generation system that processes user stories from Jir
   - Uses Google's Gemini LLM
   - Context-aware test case creation
   - Multiple test case types (positive, negative, boundary, security, performance)
+- ✅ **Impact Analysis**:
+  - Automated impact analysis for user stories
+  - Biometric story analysis
+  - User story impact assessment
 - ✅ **Vector Database**: LanceDB for efficient story storage and retrieval
 - ✅ **Modern Tech Stack**:
   - Backend: Flask API with Python
@@ -22,40 +26,112 @@ A comprehensive test case generation system that processes user stories from Jir
 - ✅ **Project Management**: Full project lifecycle management
 - ✅ **Export Functionality**: Export test cases to Excel
 
-## 📁 Project Structure
+## 📁 Current Project Structure
 
 ```
-Test-case-generator/
+Project Root/
 ├── Backend/
 │   ├── app/
-│   │   ├── datapipeline/          # Document processing pipeline
+│   │   ├── config.py                # Application configuration
+│   │   ├── data/
+│   │   │   └── success/
+│   │   │       └── hp/
+│   │   │           ├── biometric_story.txt
+│   │   │           ├── impacting_user_story.txt
+│   │   │           ├── sample_user_story.txt
+│   │   │           └── story_generation_prompt.txt
+│   │   ├── datapipeline/           # Document processing pipeline
 │   │   │   ├── embedding_generator.py
 │   │   │   └── text_extractor.py
-│   │   ├── LLM/                   # LLM integration
+│   │   ├── LLM/                    # LLM integration
+│   │   │   ├── impact_analyzer.py
 │   │   │   ├── Test_case_generator.py
+│   │   │   ├── impact_analysis_prompt.txt
 │   │   │   └── test_case_prompt.txt
-│   │   ├── models/                # Database models
+│   │   ├── models/                 # Database models
 │   │   │   ├── create_dbs.py
 │   │   │   ├── db_service.py
+│   │   │   ├── delete_lance_data.py
+│   │   │   ├── delete_postgres_data.py
 │   │   │   └── postgress_writer.py
-│   │   ├── routes/                # API endpoints
+│   │   ├── routes/                 # API endpoints
 │   │   │   └── stories.py
-│   │   ├── services/              # External services
+│   │   ├── scripts/
+│   │   │   └── trim_existing_test_cases.py
+│   │   ├── services/               # External services
 │   │   │   └── jira_integration_improved.py
-│   │   └── utils/                 # Utilities
+│   │   └── utils/                  # Utilities
 │   │       └── excel_util.py
-│   ├── data/                      # Data storage
+│   ├── data/                       # Data storage
 │   │   ├── uploaded_docs/         # Project document folders
+│   │   │   ├── project1/         # Individual project folders
+│   │   │   └── project2/
 │   │   ├── success/              # Successfully processed files
+│   │   │   ├── project1/
+│   │   │   └── project2/
 │   │   ├── failure/              # Failed processing files
-│   │   └── lance_db/             # Vector database
-│   ├── scheduler.py              # Automated processing
-│   └── run.py                   # Flask application
-└── frontend/
-    └── test-case-generator/     # Next.js frontend
-        ├── app/                 # Pages and routing
-        ├── components/          # React components
-        └── lib/                # Utilities and API
+│   │   │   ├── project1/
+│   │   │   └── project2/
+│   │   ├── lance_db/             # Vector database storage
+│   │   │   ├── embeddings/       # Story embeddings
+│   │   │   └── indexes/          # Vector indexes
+│   │   └── temp/                 # Temporary processing files
+│   ├── helper.py                   # Helper utilities
+│   ├── JIRA_MULTI_PROJECT_GUIDE.md # Jira integration guide
+│   ├── requirements.txt            # Python dependencies
+│   ├── run.py                      # Main application
+│   ├── scheduler.py                # Automated processing
+│   ├── setup_project_folders.py    # Project setup
+│   ├── standalone_scheduler.py     # Independent scheduler
+│   └── sync_multiple_projects.py   # Multi-project sync
+├── frontend/
+│   └── test-case-generator/        # Next.js frontend
+│       ├── app/
+│       │   ├── api/
+│       │   │   ├── generate-test-cases/
+│       │   │   │   └── route.ts
+│       │   │   ├── rag-chat/
+│       │   │   └── upload-story/
+│       │   │       └── route.ts
+│       │   ├── globals.css
+│       │   ├── layout.tsx
+│       │   ├── loading.tsx
+│       │   ├── page.tsx
+│       │   ├── story-details/
+│       │   │   └── [storyId]/
+│       │   │       └── page.tsx
+│       │   └── test-cases/
+│       │       └── [storyId]/
+│       │           └── page.tsx
+│       ├── components/
+│       │   ├── chatbot.tsx
+│       │   ├── theme-provider.tsx
+│       │   ├── theme-toggle.tsx
+│       │   └── ui/                 # UI components library
+│       │       ├── accordion.tsx
+│       │       ├── alert-dialog.tsx
+│       │       ├── button.tsx
+│       │       ├── card.tsx
+│       │       └── [other UI components]
+│       ├── hooks/
+│       │   ├── use-mobile.tsx
+│       │   └── use-toast.ts
+│       ├── public/                 # Static assets
+│       │   ├── innova-logo-new.webp
+│       │   ├── innova-logo.png
+│       │   ├── Logo-New.svg
+│       │   └── [other assets]
+│       ├── styles/
+│       │   └── globals.css
+│       ├── package.json
+│       ├── next.config.mjs
+│       ├── tailwind.config.ts
+│       └── tsconfig.json
+├── package-lock.json
+├── Readme.md
+└── requirements.txt
+
+```
 
 ## 🚀 Prerequisites
 
