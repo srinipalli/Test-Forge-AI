@@ -5,7 +5,7 @@ This guide provides step-by-step instructions for setting up and running the Tes
 ## Prerequisites
 
 Before starting, ensure you have the following installed:
-- Python 3.8 or higher
+- Python 3.12 or higher
 - Node.js 16 or higher
 - PostgreSQL 12 or higher
 - Git
@@ -14,7 +14,7 @@ Before starting, ensure you have the following installed:
 
 ```bash
 git clone <repository-url>
-cd Final-Trial-1-on june 25
+cd Test-Forge_AI
 ```
 
 ## Step 2: Backend Setup
